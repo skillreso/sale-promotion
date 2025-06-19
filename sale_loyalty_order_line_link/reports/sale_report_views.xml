@@ -10,7 +10,7 @@
                 <filter
                     name="promotion"
                     string="Promotion Lines"
-                    domain="[('loyalty_program_id','!=', False)]"
+                    domain="[('loyalty_program_id', '!=', False)]"
                 />
             </field>
             <xpath expr="//filter[@name='status']" position="after">

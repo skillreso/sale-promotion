@@ -3,7 +3,7 @@
 {
     "name": "Loyalty Initial Date Validity",
     "summary": "Set a start date for a promotion",
-    "version": "16.0.1.0.1",
+    "version": "17.0.1.0.0",
     "development_status": "Production/Stable",
     "category": "Sale",
     "website": "https://github.com/OCA/sale-promotion",

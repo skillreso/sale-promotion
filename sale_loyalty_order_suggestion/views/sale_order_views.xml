@@ -13,7 +13,7 @@
                     name="id"
                     nolabel="1"
                     context="{'active_id': id, 'active_ids': [id]}"
-                    attrs="{'invisible': ['|', ('is_reward_line', '=', True), ('suggested_promotions', '=', False)]}"
+                    invisible="is_reward_line == True or suggested_promotions == False"
                     widget="suggest_promotion_widget"
                 />
             </xpath>

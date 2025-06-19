@@ -4,7 +4,7 @@
     "name": "Link loyalty programs to order lines",
     "summary": "Adds a link between loyalty programs and their generated order lines"
     "for easing tracking",
-    "version": "16.0.1.0.1",
+    "version": "17.0.1.0.0",
     "development_status": "Production/Stable",
     "category": "Sale",
     "website": "https://github.com/OCA/sale-promotion",

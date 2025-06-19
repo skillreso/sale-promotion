@@ -5,12 +5,12 @@
         <field name="inherit_id" ref="sale.view_order_form" />
         <field name="arch" type="xml">
             <xpath expr="//page[@name='other_information']" position="inside">
-                <group attrs="{'invisible': [('applied_coupon_ids', '=', [])]}">
+                <group invisible="applied_coupon_ids == []">
                     <group name="promo_info" string="Promotions">
                         <field
                             name="applied_coupon_ids"
                             readonly="True"
-                            attrs="{'invisible': [('applied_coupon_ids', '=', [])]}"
+                            invisible="applied_coupon_ids == []"
                             widget="many2many_tags"
                         />
                     </group>

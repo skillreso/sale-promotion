@@ -115,6 +115,13 @@ class SaleOrder(models.Model):
         total_cost = (
             points if reward.clear_wallet else claimable_count * reward.required_points
         )
+        if len(reward.loyalty_multi_gift_ids) <= 0:
+            raise UserError(
+                _(
+                    "There are no products available for this reward. "
+                    "Please contact the administrator."
+                )
+            )
         cost = total_cost / len(reward.loyalty_multi_gift_ids)
         order_lines = self.order_line.filtered(
             lambda x: x.is_reward_line

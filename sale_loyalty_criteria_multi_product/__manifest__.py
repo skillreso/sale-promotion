@@ -3,7 +3,7 @@
 {
     "name": "Loyalty multi product criteria in sale",
     "summary": "Allows to set as promotion criteria multi-product conditions",
-    "version": "16.0.1.0.0",
+    "version": "17.0.1.0.0",
     "development_status": "Production/Stable",
     "category": "Sale",
     "website": "https://github.com/OCA/sale-promotion",
