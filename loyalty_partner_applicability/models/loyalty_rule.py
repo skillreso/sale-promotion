@@ -7,10 +7,23 @@ class LoyaltyRule(models.Model):
     _inherit = "loyalty.rule"
     _description = "Loyalty Rule"
 
+    is_using_partner_list = fields.Boolean(
+        string="Use Partner List",
+        help="If checked, the loyalty program will only apply to the customers "
+        "selected in the partner list.",
+        default=True,
+    )
+
     rule_partners_domain = fields.Char(
         string="Based on Customers",
         help="Loyalty program will work for selected customers only",
         default="[]",
+    )
+
+    rule_partner_ids = fields.Many2many(
+        comodel_name="res.partner",
+        string="Customers",
+        help="Loyalty program will work for selected customers only",
     )
 
     @api.model_create_multi

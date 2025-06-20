@@ -5,12 +5,15 @@
         <field name="model">loyalty.rule</field>
         <field name="arch" type="xml">
             <field name="minimum_qty" position="before">
+                <field name="is_using_partner_list" widget="boolean_toggle"/>
                 <!-- rule_partners_domain -->
                 <field
                     name="rule_partners_domain"
                     widget="domain"
                     options="{'model': 'res.partner', 'in_dialog': true}"
+                    invisible="is_using_partner_list"
                 />
+                <field name="rule_partner_ids" widget="many2many_tags" invisible="is_using_partner_list != True" />
             </field>
         </field>
     </record>

@@ -10,13 +10,11 @@ setuptools.setup(
     install_requires=[
         'odoo-addon-loyalty_criteria_multi_product>=17.0dev,<17.1dev',
         'odoo-addon-loyalty_incompatibility>=17.0dev,<17.1dev',
-        'odoo-addon-loyalty_initial_date_validity>=17.0dev,<17.1dev',
         'odoo-addon-loyalty_limit>=17.0dev,<17.1dev',
         'odoo-addon-loyalty_multi_gift>=17.0dev,<17.1dev',
         'odoo-addon-loyalty_partner_applicability>=17.0dev,<17.1dev',
         'odoo-addon-sale_loyalty_criteria_multi_product>=17.0dev,<17.1dev',
         'odoo-addon-sale_loyalty_incompatibility>=17.0dev,<17.1dev',
-        'odoo-addon-sale_loyalty_initial_date_validity>=17.0dev,<17.1dev',
         'odoo-addon-sale_loyalty_limit>=17.0dev,<17.1dev',
         'odoo-addon-sale_loyalty_multi_gift>=17.0dev,<17.1dev',
         'odoo-addon-sale_loyalty_order_line_link>=17.0dev,<17.1dev',

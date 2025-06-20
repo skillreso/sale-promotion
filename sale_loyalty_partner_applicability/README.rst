@@ -31,6 +31,8 @@ Sale Loyalty Partner Applicability
 This module extends the loyalty_partner_applicability functionality. When this filter
 is defined, the promotion rule will only be applied to customers who meet the specified
 conditions in the filter.
+Or a list of customers can be defined in the promotion rule, so that the
+promotion will only be applied to those customers.
 The coupons generated in a sales order for a specific member promotion can be shared
 between members of the same trading entity.
 
@@ -45,6 +47,8 @@ Configuration
 To configure the partner based promotion filter:
 
 Go to *Sales > Products > Discount & Loyalty* and select or create a new one.
+Use Partner List as the applicability type.
+Then, you can select a list of customers or set a filter based on customers.
 In conditional rules set the condition based on customers.
 
 In promotions that generate coupons for the next sale, we can allow coupon sharing
@@ -81,6 +85,10 @@ Contributors
 * `Tecnativa <https://www.tecnativa.com>`_:
 
   * Pilar Vargas
+
+* `Skillreso <https://www.skillreso.com>`_:
+
+    * Hugo Cluzel
 
 Maintainers
 ~~~~~~~~~~~

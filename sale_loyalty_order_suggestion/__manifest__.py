@@ -10,7 +10,7 @@
     "author": "Tecnativa, Odoo Community Association (OCA)",
     "maintainers": ["pilarvargas-tecnativa"],
     "license": "AGPL-3",
-    "depends": ["sale_loyalty", "sale_loyalty_initial_date_validity"],
+    "depends": ["sale_loyalty"],
     "data": [
         "security/ir.model.access.csv",
         "views/sale_order_views.xml",

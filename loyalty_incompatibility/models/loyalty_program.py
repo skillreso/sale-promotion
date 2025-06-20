@@ -17,6 +17,12 @@ class LoyaltyProgram(models.Model):
         domain="[('id', '!=', id)]",
     )
 
+    is_incompatible_promotion_all = fields.Boolean(
+        string="Incompatible with all promotions",
+        help="If checked, this program is incompatible with all other promotions.",
+        default=False,
+    )
+
     def _inverse_incompatible_promotion_ids(self):
         """We'll be ensuring that any program that could have been removed from the
         field will be compatible again and that any new program in the field will

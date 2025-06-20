@@ -5,7 +5,8 @@
         <field name="model">loyalty.program</field>
         <field name="arch" type="xml">
             <field name="currency_id" position="before">
-                <field name="incompatible_promotion_ids" widget="many2many_tags" />
+                <field name="is_incompatible_promotion_all" widget="boolean" invisible="program_type != 'promo_code'"/>
+                <field name="incompatible_promotion_ids" widget="many2many_tags" invisible="is_incompatible_promotion_all == True"/>
             </field>
         </field>
     </record>
@@ -14,6 +15,7 @@
         <field name="model">loyalty.program</field>
         <field name="arch" type="xml">
             <field name="program_type" position="before">
+                <field name="is_incompatible_promotion_all" widget="boolean" />
                 <field name="incompatible_promotion_ids" widget="many2many_tags" />
             </field>
         </field>

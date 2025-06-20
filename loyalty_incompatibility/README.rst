@@ -71,7 +71,11 @@ Contributors
   * David Vidal
   * Stefan Ungureanu
   * Pilar Vargas
+  
+* `Skillreso <https://www.skillreso.com>`_:
 
+    * Hugo Cluzel
+    
 Maintainers
 ~~~~~~~~~~~
 

@@ -60,7 +60,11 @@ Contributors
 * `Tecnativa <https://www.tecnativa.com>`_:
 
   * Pilar Vargas
+  
+* `Skillreso <https://www.skillreso.com>`_:
 
+    * Hugo Cluzel
+    
 Maintainers
 ~~~~~~~~~~~
 

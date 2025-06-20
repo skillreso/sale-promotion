@@ -25,10 +25,37 @@ class SaleOrder(models.Model):
                 [ast.literal_eval(rule.rule_partners_domain), domain]
             )
         return domain
+    
+    def _is_valid_partner_in_list(self, rule):
+        """
+        Check if the partner is in the list of partners defined in the loyalty rule.
+        This method checks if the partner is part of the rule's partner list or if
+        the rule does not specify a partner list, in which case it returns True.
+        Args:
+            rule (recordset): The loyalty rule for which partner eligibility is checked.
+        Returns:
+            bool: True if the partner is in the list or if no list is defined, False otherwise.
+        """
+        if not rule.rule_partner_ids:
+            return True  # If no partners are defined, consider it valid.
+
+        allow_sharing = (
+            self.env["ir.config_parameter"].sudo().get_param("allow_coupon_sharing")
+        )
+
+        if allow_sharing:
+            if self.partner_id.commercial_partner_id in rule.rule_partner_ids:
+                return True
+                
+        if self.partner_id in rule.rule_partner_ids:
+            return True
+        
+        else:
+            return False
 
     def _is_valid_partner(self, program):
         """
-        Check if the partner is eligible for a loyalty program based on partner domains.
+        Check if the partner is eligible for a loyalty program based on partner domains or list.
         This method iterates through the loyalty program's rules and their partner
         domains. It verifies if the partner meets the eligibility criteria specified
         in the partner domain of each rule. When the partner is found eligible for a
@@ -39,9 +66,12 @@ class SaleOrder(models.Model):
             bool: True if the partner is eligible for the program, False otherwise.
         """
         for rule in program.rule_ids:
-            partner_domain = self._get_partner_domain(rule, self.partner_id)
-            if self.env["res.partner"].search_count(partner_domain):
-                return True
+            if rule.is_using_partner_list:
+                return self._is_valid_partner_in_list(rule)
+            else: # If the rule is not using a partner list, check the partner domain.
+                partner_domain = self._get_partner_domain(rule, self.partner_id)
+                if self.env["res.partner"].search_count(partner_domain):
+                    return True
         return False
 
     def _program_check_compute_points(self, programs):

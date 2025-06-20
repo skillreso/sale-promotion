@@ -30,6 +30,9 @@ Loyalty incompatibilities in sales
 
 This module allows to set incompatibilities between promotions, so when a promotion A
 is not compatible with promotion B, they can't be applied together in a sales order.
+And it also make incompatibilities with loyalty programs, so if a loyalty program is
+applied, no promotion can be applied, and if a promotion is applied, no loyalty
+program can be applied.
 
 **Table of contents**
 
@@ -73,6 +76,10 @@ Contributors
   * Stefan Ungureanu
   * Pilar Vargas
 
+* `Skillreso <https://www.skillreso.com>`_:
+
+    * Hugo Cluzel
+    
 Maintainers
 ~~~~~~~~~~~
 
