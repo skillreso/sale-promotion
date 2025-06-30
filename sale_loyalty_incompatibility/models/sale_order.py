@@ -14,19 +14,46 @@ class SaleOrder(models.Model):
         # already applied programs in the order
         order_programs = self.order_line.reward_id.program_id
 
-        promo_programs = programs.filtered(lambda p: p.program_type == "promo_code")
-        incompatible_programs = promo_programs.filtered(
-            lambda p: p.is_incompatible_promotion_all == True
+        existing_promo_programs = order_programs.filtered(
+            lambda p: p.program_type == "promo_code"
         )
+        promo_programs = programs.filtered(lambda p: p.program_type == "promo_code")
+
+        print('AAAAAAAAAAAAAAAAAAA  ',existing_promo_programs, promo_programs)
+        if not existing_promo_programs:
+            print('C VIDEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE')
+        if not promo_programs:
+            print('C VIDEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE 2')
+
+        to_remove: bool = False
         program_to_remove = None
-        if promo_programs:
-            print(
-                f"Incompatible programs: {incompatible_programs.mapped('name')}"
-            )
-            if len(incompatible_programs) > 0 and len(promo_programs) > 1:
-                program_to_remove = promo_programs[-1]
+
+        if existing_promo_programs and promo_programs:
+            # Comparer uniquement les programmes ayant des IDs différents
+            for existing_program in existing_promo_programs:
+                for new_program in promo_programs:
+                    if existing_program.id != new_program.id:
+                        # Si l'un des deux est incompatible avec d'autres promotions
+                        if existing_program.is_incompatible_promotion_all or new_program.is_incompatible_promotion_all:
+                            to_remove = True
+                            if existing_program.is_incompatible_promotion_all:
+                                program_to_remove = existing_program
+                            elif new_program.is_incompatible_promotion_all:
+                                program_to_remove = new_program
+                            break
+                if to_remove:
+                    break
+
 
         for program in result:
+            if to_remove and program_to_remove and program_to_remove == program:
+                result[program] = {
+                    "error": _(
+                        "This promotion is incompatible with other promotions already "
+                        "applied in the order so it can't be applied."
+                    )
+                }
+            # If program is incompatible with specific programs
             if any({x in order_programs for x in program.incompatible_promotion_ids}):
                 result[program] = {
                     "error": _(
@@ -34,13 +61,6 @@ class SaleOrder(models.Model):
                         "order so it can't be applied."
                     )
                 }
-        if program_to_remove:
-            result[program_to_remove] = {
-                "error": _(
-                    "This promotion is incompatible with other promotions already "
-                    "applied in the order so it can't be applied."
-                )
-            }
 
         print(result)
         return result
