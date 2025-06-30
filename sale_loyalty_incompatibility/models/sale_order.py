@@ -36,10 +36,7 @@ class SaleOrder(models.Model):
                         # Si l'un des deux est incompatible avec d'autres promotions
                         if existing_program.is_incompatible_promotion_all or new_program.is_incompatible_promotion_all:
                             to_remove = True
-                            if existing_program.is_incompatible_promotion_all:
-                                program_to_remove = existing_program
-                            elif new_program.is_incompatible_promotion_all:
-                                program_to_remove = new_program
+                            program_to_remove = new_program
                             break
                 if to_remove:
                     break
