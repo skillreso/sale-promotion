@@ -2,8 +2,6 @@
 # Copyright 2023 Tecnativa - Stefan Ungureanu
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 from odoo import fields, models
-import logging
-_logger = logging.getLogger("Skillreso")
 
 class LoyaltyProgram(models.Model):
     _inherit = "loyalty.program"
@@ -28,26 +26,20 @@ class LoyaltyProgram(models.Model):
         """We'll be ensuring that any program that could have been removed from the
         field will be compatible again and that any new program in the field will
         be incompatible with this one. So we will ensure that A ⊥ B as B ⊥ A"""
-        _logger.info("_inverse_incompatible_promotion_ids")
         for program in self:
-            _logger.info("program : %s" % program)
-            _logger.info("incompatible_promotion_ids : %s" % program.incompatible_promotion_ids)
             incompatible_programs = self.search(
                 [
                     ("incompatible_promotion_ids", "in", program.ids),
                     ("id", "!=", program.id),
                 ]
             )
-            _logger.info("incompatible_programs : %s" % incompatible_programs)
             to_remove_programs = (
                 incompatible_programs - program.incompatible_promotion_ids
             )
-            _logger.info("to_remove_programs : %s" % to_remove_programs)
-            _logger.info("before : %s" % program.incompatible_promotion_ids.incompatible_promotion_ids)
+            # The line below does not work if there are more than one entry in program.incompatible_promotion_ids
+            # Because all entries would then have their incompatible_promotion_ids set to the same value, containing all incompatible_promotion_ids of every entry
+            # That's why we replace this line with a for loop that updates the incompatible_promotion_ids separately for each entry
             # program.incompatible_promotion_ids.incompatible_promotion_ids |= program
             for incompatible_program in program.incompatible_promotion_ids:
                 incompatible_program.incompatible_promotion_ids |= program
-            _logger.info("after : %s" % program.incompatible_promotion_ids.incompatible_promotion_ids)
-            _logger.info("before2 : %s" % to_remove_programs.incompatible_promotion_ids)
             to_remove_programs.incompatible_promotion_ids -= program
-            _logger.info("after2 : %s" % to_remove_programs.incompatible_promotion_ids)

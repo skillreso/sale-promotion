@@ -4,7 +4,7 @@
 {
     "name": "Loyalty incompatibilities",
     "summary": "Allows to set incompatibility rules between promotions",
-    "version": "17.0.1.0.0",
+    "version": "17.0.1.0.1",
     "development_status": "Production/Stable",
     "category": "Sale",
     "website": "https://github.com/OCA/sale-promotion",
