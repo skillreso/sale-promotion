@@ -28,8 +28,10 @@ class LoyaltyProgram(models.Model):
         """We'll be ensuring that any program that could have been removed from the
         field will be compatible again and that any new program in the field will
         be incompatible with this one. So we will ensure that A ⊥ B as B ⊥ A"""
+        _logger.info("_inverse_incompatible_promotion_ids")
         for program in self:
-            _logger.info("_inverse_incompatible_promotion_ids : %s" % program)
+            _logger.info("program : %s" % program)
+            _logger.info("incompatible_promotion_ids : %s" % program.incompatible_promotion_ids)
             incompatible_programs = self.search(
                 [
                     ("incompatible_promotion_ids", "in", program.ids),
