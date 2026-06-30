@@ -42,4 +42,6 @@ class LoyaltyProgram(models.Model):
             # program.incompatible_promotion_ids.incompatible_promotion_ids |= program
             for incompatible_program in program.incompatible_promotion_ids:
                 incompatible_program.incompatible_promotion_ids |= program
-            to_remove_programs.incompatible_promotion_ids -= program
+            # to_remove_programs.incompatible_promotion_ids -= program
+            for to_remove_program in to_remove_programs:
+                to_remove_program.incompatible_promotion_ids -= program
