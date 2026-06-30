@@ -44,7 +44,9 @@ class LoyaltyProgram(models.Model):
             )
             _logger.info("to_remove_programs : %s" % to_remove_programs)
             _logger.info("before : %s" % program.incompatible_promotion_ids.incompatible_promotion_ids)
-            program.incompatible_promotion_ids.incompatible_promotion_ids |= program
+            # program.incompatible_promotion_ids.incompatible_promotion_ids |= program
+            for incompatible_program in program.incompatible_promotion_ids:
+                incompatible_program.incompatible_promotion_ids |= program
             _logger.info("after : %s" % program.incompatible_promotion_ids.incompatible_promotion_ids)
             _logger.info("before2 : %s" % to_remove_programs.incompatible_promotion_ids)
             to_remove_programs.incompatible_promotion_ids -= program
