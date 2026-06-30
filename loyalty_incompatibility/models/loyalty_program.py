@@ -2,7 +2,8 @@
 # Copyright 2023 Tecnativa - Stefan Ungureanu
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 from odoo import fields, models
-
+import logging
+_logger = logging.getLogger("Skillreso")
 
 class LoyaltyProgram(models.Model):
     _inherit = "loyalty.program"
@@ -28,14 +29,17 @@ class LoyaltyProgram(models.Model):
         field will be compatible again and that any new program in the field will
         be incompatible with this one. So we will ensure that A ⊥ B as B ⊥ A"""
         for program in self:
+            _logger.info("_inverse_incompatible_promotion_ids : %s" % program)
             incompatible_programs = self.search(
                 [
                     ("incompatible_promotion_ids", "in", program.ids),
                     ("id", "!=", program.id),
                 ]
             )
+            _logger.info("incompatible_programs : %s" % incompatible_programs)
             to_remove_programs = (
                 incompatible_programs - program.incompatible_promotion_ids
             )
+            _logger.info("to_remove_programs : %s" % to_remove_programs)
             program.incompatible_promotion_ids.incompatible_promotion_ids |= program
             to_remove_programs.incompatible_promotion_ids -= program
